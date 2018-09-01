@@ -78,7 +78,7 @@ Results in the expected output:
 ```
 executed transaction: fced489b6456bbd2113f940e62c64298fbb4adabab54f46e8178b93ab93b7a7c  96 bytes  341 us
 #    helloworld <= helloworld::hi               ""
->> Hello, user
+>> Hello, I'm the contract helloworld
 ```
 Calling the `verify` function with the current user's ID: `user`
 ```
