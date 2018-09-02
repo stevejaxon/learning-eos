@@ -3,7 +3,7 @@
 
 using namespace eosio;
 
-class helloWorld : public eosio::contract {
+class helloWorld : public contract {
 public:
   using contract::contract;
 
