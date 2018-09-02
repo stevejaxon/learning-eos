@@ -30,7 +30,7 @@ Here are some useful alias commands to simplify things:
 ```
 alias cleos='docker exec -it eosio /opt/eosio/bin/cleos -u http://localhost:8888'
 alias keosd='docker exec -it eosio /opt/eosio/bin/keosd --wallet-url http://localhost:8888'
-alias eosiocpp='docker exec -it eosio /opt/eosio/bin/eosiocpp
+alias eosiocpp='docker exec -it eosio /opt/eosio/bin/eosiocpp'
 ```
 
 ## Smart Contracts
@@ -64,9 +64,13 @@ cleos create account eosio <account_name> $PUB_KEY $PUB_KEY
 ```
 
 ### Deploying the Smart Contract
-
+In the simplest case where the .wasm and .abi files are named the same as the parent directory then you can use the following shorthand:
 ```
 cleos set contract helloworld /work/contracts/helloWorld -p helloworld@active
+```
+If the contracts have a different name to the parent directory (or there are multiple contracts in one directory), then use the following:
+```
+cleos set contract simplestore /work/contracts/storage/ simpleStore.wasm simpleStore.abi -p simplestore@active
 ```
 
 ### Calling a Smart Contract's functions
