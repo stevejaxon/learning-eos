@@ -15,10 +15,28 @@ class simpleStore : public contract {
 
     /// @abi action
     void setglobal(string& value) {
-      _dataStore.emplace(get_self(), [&]( auto& d ) {
-        d.key = N(_self);
-        d.data = value;
-      });
+      // We'll use the uint64 representation of the contract's account_name as the global key
+      auto keyValue = N(_self);
+      // Make a lookup call to see if anything has been stored already in the global variable
+      auto itr = _dataStore.find(keyValue);
+      // If a value has already been set then we need to call the modify function on the data store
+      if (itr != _dataStore.end()) {
+        _dataStore.modify(
+          itr, get_self(), 
+          [&]( auto& d ) {
+            d.key = keyValue;
+            d.data = value;
+            }
+        );
+      } else {
+        _dataStore.emplace(
+          get_self(), 
+          [&]( auto& d ) {
+            d.key = keyValue;
+            d.data = value;
+          }
+        );
+      }      
     }
 
   private:
