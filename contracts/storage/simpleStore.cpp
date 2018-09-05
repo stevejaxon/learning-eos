@@ -18,6 +18,11 @@ class simpleStore : public contract {
       // We'll use the uint64 representation of the contract's account_name as the global key
       setData(_self, value);          
     }
+
+    /// @abi action
+    void readglobal() {
+      getData(_self);
+    }
     
     /// @abi action
     void set(account_name account, string& value) {
@@ -25,6 +30,11 @@ class simpleStore : public contract {
       require_auth(account);
       // We'll store the data against the calling account_name as the key
       setData(account, value);          
+    }
+
+    /// @abi action
+    void read(account_name account) {
+      getData(account);
     }
 
   private:
@@ -64,6 +74,15 @@ class simpleStore : public contract {
         );
       }      
     }
+
+    void getData(account_name account) {
+      // We'll use the uint64 representation of the account_name as the key
+      auto keyValue = N(account);
+      // Make a lookup call to see if anything has been stored already in the global variable
+      auto value = _dataStore.get(keyValue);
+      // If a value has already been set then we need to call the modify function on the data store
+      print("Retrieved the data: ", value.data); 
+    }
 };
 
-EOSIO_ABI(simpleStore, (setglobal)(set))
+EOSIO_ABI(simpleStore, (setglobal)(set)(readglobal)(read))
