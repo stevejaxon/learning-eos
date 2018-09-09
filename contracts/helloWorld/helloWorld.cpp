@@ -14,6 +14,7 @@ public:
     // print("The system time is ", publication_time);
   }
 
+  /// @abi action
   void verify(account_name user) {
     require_auth(user);
     print("Verified as being ", name{user});
