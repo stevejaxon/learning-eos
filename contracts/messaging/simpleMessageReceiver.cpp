@@ -1,4 +1,5 @@
 #include <eosiolib/eosio.hpp>
+#include <eosiolib/print.hpp>
 
 using namespace eosio;
 using std::string;
@@ -8,8 +9,8 @@ class simpleMessageReceiver : public contract {
     using contract::contract;
 
     /// @abi action
-    void receive() {
-
+    void receive(string msg) {
+      print("Received the message ", msg);
     }
 };
 
