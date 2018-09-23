@@ -16,8 +16,9 @@
  (import "env" "prints_l" (func $prints_l (param i32 i32)))
  (import "env" "read_action_data" (func $read_action_data (param i32 i32) (result i32)))
  (import "env" "require_auth2" (func $require_auth2 (param i64 i64)))
+ (import "env" "_ZN21simpleMessageReceiver7receiveENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE" (func $_ZN21simpleMessageReceiver7receiveENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE (param i32 i32)))
  (table 2 2 anyfunc)
- (elem (i32.const 0) $__wasm_nullptr $_ZN21simpleMessageReceiver7receiveENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE)
+ (elem (i32.const 0) $__wasm_nullptr $__importThunk__ZN21simpleMessageReceiver7receiveENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE)
  (memory $0 1)
  (data (i32.const 4) "\e0a\00\00")
  (data (i32.const 16) "onerror\00")
@@ -34,6 +35,7 @@
  (export "now" (func $now))
  (export "_ZN5eosio12require_authERKNS_16permission_levelE" (func $_ZN5eosio12require_authERKNS_16permission_levelE))
  (export "apply" (func $apply))
+ (export "_Z7receiveNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE" (func $_Z7receiveNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE))
  (export "malloc" (func $malloc))
  (export "free" (func $free))
  (export "memcmp" (func $memcmp))
@@ -576,44 +578,6 @@
    (i32.add
     (get_local $9)
     (i32.const 32)
-   )
-  )
- )
- (func $_ZN21simpleMessageReceiver7receiveENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
-  (local $2 i32)
-  (local $3 i32)
-  (call $prints
-   (i32.const 144)
-  )
-  (call $prints_l
-   (select
-    (i32.load offset=8
-     (get_local $1)
-    )
-    (i32.add
-     (get_local $1)
-     (i32.const 1)
-    )
-    (tee_local $3
-     (i32.and
-      (tee_local $2
-       (i32.load8_u
-        (get_local $1)
-       )
-      )
-      (i32.const 1)
-     )
-    )
-   )
-   (select
-    (i32.load offset=4
-     (get_local $1)
-    )
-    (i32.shr_u
-     (get_local $2)
-     (i32.const 1)
-    )
-    (get_local $3)
    )
   )
  )
@@ -1624,6 +1588,44 @@
     (get_local $1)
    )
    (return)
+  )
+ )
+ (func $_Z7receiveNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE (param $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (call $prints
+   (i32.const 144)
+  )
+  (call $prints_l
+   (select
+    (i32.load offset=8
+     (get_local $0)
+    )
+    (i32.add
+     (get_local $0)
+     (i32.const 1)
+    )
+    (tee_local $2
+     (i32.and
+      (tee_local $1
+       (i32.load8_u
+        (get_local $0)
+       )
+      )
+      (i32.const 1)
+     )
+    )
+   )
+   (select
+    (i32.load offset=4
+     (get_local $0)
+    )
+    (i32.shr_u
+     (get_local $1)
+     (i32.const 1)
+    )
+    (get_local $2)
+   )
   )
  )
  (func $malloc (param $0 i32) (result i32)
@@ -3211,5 +3213,11 @@
  )
  (func $__wasm_nullptr (type $FUNCSIG$v)
   (unreachable)
+ )
+ (func $__importThunk__ZN21simpleMessageReceiver7receiveENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE (type $FUNCSIG$vii) (param $0 i32) (param $1 i32)
+  (call $_ZN21simpleMessageReceiver7receiveENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE
+   (get_local $0)
+   (get_local $1)
+  )
  )
 )
