@@ -26,6 +26,8 @@ class simpleMessageSender : public contract {
      */
     /// @abi action
     void send(const account_name from) {
+      // TODO: INLINE_ACTION_SENDER should be used instead of directly calling send
+      // INLINE_ACTION_SENDER()
       action(
         permission_level{ from, N(active) },
         N(msg.receiver), N(receive),
