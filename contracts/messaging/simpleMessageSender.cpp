@@ -15,7 +15,7 @@ class simpleMessageSender : public contract {
      * </code>
      * Issuing the following command:
      * <code>
-     * cleos push action msg.sender send '["msg.sender"]' -p msg.sender
+     * cleos push action msg.sender send '["msg.sender", "Hello Receiver!"]' -p msg.sender
      * </code>
      * Results in the following output:
      * <code>
@@ -26,14 +26,8 @@ class simpleMessageSender : public contract {
      * </code>
      */
     /// @abi action
-    void send(const account_name from) {
-      // TODO: INLINE_ACTION_SENDER should be used instead of directly calling send
-      INLINE_ACTION_SENDER(simpleMessageReceiver, receive)(N(receive.code), {{N(from), N(active)}}, std::make_tuple(std::string("Hello Receiver!")));
-      // action(
-      //   permission_level{ from, N(active) },
-      //   N(msg.receiver), N(receive),
-      //   std::make_tuple(std::string("Hello Receiver!"))
-      // ).send();
+    void send(const account_name from, string msg) {
+      INLINE_ACTION_SENDER(simpleMessageReceiver, receive)(N(receive.code), {from, N(active)}, std::make_tuple(msg));    
     } 
 };
 
