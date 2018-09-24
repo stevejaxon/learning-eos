@@ -1,4 +1,5 @@
 #include <eosiolib/eosio.hpp>
+#include "simpleMessageReceiver.hpp"
 
 using namespace eosio;
 using std::string;
@@ -27,12 +28,12 @@ class simpleMessageSender : public contract {
     /// @abi action
     void send(const account_name from) {
       // TODO: INLINE_ACTION_SENDER should be used instead of directly calling send
-      // INLINE_ACTION_SENDER()
-      action(
-        permission_level{ from, N(active) },
-        N(msg.receiver), N(receive),
-        std::make_tuple(std::string("Hello Receiver!"))
-      ).send();
+      INLINE_ACTION_SENDER(simpleMessageReceiver, receive)(N(receive.code), {{N(from), N(active)}}, std::make_tuple(std::string("Hello Receiver!")));
+      // action(
+      //   permission_level{ from, N(active) },
+      //   N(msg.receiver), N(receive),
+      //   std::make_tuple(std::string("Hello Receiver!"))
+      // ).send();
     } 
 };
 
