@@ -11,5 +11,3 @@ class simpleMessageReceiver : public contract {
     /// @abi action
     void receive(string msg);
 };
-
-EOSIO_ABI(simpleMessageReceiver, (receive))

@@ -3,10 +3,10 @@
  (type $FUNCSIG$v (func))
  (type $FUNCSIG$j (func (result i64)))
  (type $FUNCSIG$vjj (func (param i64 i64)))
+ (type $FUNCSIG$vi (func (param i32)))
  (type $FUNCSIG$i (func (result i32)))
  (type $FUNCSIG$iii (func (param i32 i32) (result i32)))
  (type $FUNCSIG$iiii (func (param i32 i32 i32) (result i32)))
- (type $FUNCSIG$vi (func (param i32)))
  (import "env" "abort" (func $abort))
  (import "env" "action_data_size" (func $action_data_size (result i32)))
  (import "env" "current_time" (func $current_time (result i64)))
@@ -21,12 +21,12 @@
  (elem (i32.const 0) $__wasm_nullptr $__importThunk__ZN21simpleMessageReceiver7receiveENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE)
  (memory $0 1)
  (data (i32.const 4) "\e0a\00\00")
- (data (i32.const 16) "onerror\00")
- (data (i32.const 32) "eosio\00")
- (data (i32.const 48) "onerror action\'s are only valid from the \"eosio\" system account\00")
- (data (i32.const 112) "get\00")
- (data (i32.const 128) "read\00")
- (data (i32.const 144) "Received the message \00")
+ (data (i32.const 16) "Received the message \00")
+ (data (i32.const 48) "onerror\00")
+ (data (i32.const 64) "eosio\00")
+ (data (i32.const 80) "onerror action\'s are only valid from the \"eosio\" system account\00")
+ (data (i32.const 144) "get\00")
+ (data (i32.const 160) "read\00")
  (data (i32.const 8576) "malloc_from_freed was designed to only be called after _heap was completely allocated\00")
  (export "memory" (memory $0))
  (export "_ZeqRK11checksum256S1_" (func $_ZeqRK11checksum256S1_))
@@ -34,8 +34,8 @@
  (export "_ZneRK11checksum160S1_" (func $_ZneRK11checksum160S1_))
  (export "now" (func $now))
  (export "_ZN5eosio12require_authERKNS_16permission_levelE" (func $_ZN5eosio12require_authERKNS_16permission_levelE))
- (export "apply" (func $apply))
  (export "_Z7receiveNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE" (func $_Z7receiveNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE))
+ (export "apply" (func $apply))
  (export "malloc" (func $malloc))
  (export "free" (func $free))
  (export "memcmp" (func $memcmp))
@@ -85,6 +85,44 @@
    )
   )
  )
+ (func $_Z7receiveNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE (param $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (call $prints
+   (i32.const 16)
+  )
+  (call $prints_l
+   (select
+    (i32.load offset=8
+     (get_local $0)
+    )
+    (i32.add
+     (get_local $0)
+     (i32.const 1)
+    )
+    (tee_local $2
+     (i32.and
+      (tee_local $1
+       (i32.load8_u
+        (get_local $0)
+       )
+      )
+      (i32.const 1)
+     )
+    )
+   )
+   (select
+    (i32.load offset=4
+     (get_local $0)
+    )
+    (i32.shr_u
+     (get_local $1)
+     (i32.const 1)
+    )
+    (get_local $2)
+   )
+  )
+ )
  (func $apply (param $0 i64) (param $1 i64) (param $2 i64)
   (local $3 i32)
   (local $4 i32)
@@ -111,7 +149,7 @@
    (i64.const 59)
   )
   (set_local $4
-   (i32.const 16)
+   (i32.const 48)
   )
   (set_local $7
    (i64.const 0)
@@ -252,7 +290,7 @@
     (i64.const 59)
    )
    (set_local $4
-    (i32.const 32)
+    (i32.const 64)
    )
    (set_local $7
     (i64.const 0)
@@ -384,7 +422,7 @@
      (get_local $7)
      (get_local $1)
     )
-    (i32.const 48)
+    (i32.const 80)
    )
   )
   (block $label$13
@@ -402,7 +440,7 @@
      (i64.const 59)
     )
     (set_local $4
-     (i32.const 16)
+     (i32.const 48)
     )
     (set_local $7
      (i64.const 0)
@@ -1181,7 +1219,7 @@
       (get_local $2)
      )
     )
-    (i32.const 112)
+    (i32.const 144)
    )
    (set_local $4
     (i32.load8_u
@@ -1325,7 +1363,7 @@
      )
     )
    )
-   (i32.const 128)
+   (i32.const 160)
   )
   (drop
    (call $memcpy
@@ -1588,44 +1626,6 @@
     (get_local $1)
    )
    (return)
-  )
- )
- (func $_Z7receiveNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE (param $0 i32)
-  (local $1 i32)
-  (local $2 i32)
-  (call $prints
-   (i32.const 144)
-  )
-  (call $prints_l
-   (select
-    (i32.load offset=8
-     (get_local $0)
-    )
-    (i32.add
-     (get_local $0)
-     (i32.const 1)
-    )
-    (tee_local $2
-     (i32.and
-      (tee_local $1
-       (i32.load8_u
-        (get_local $0)
-       )
-      )
-      (i32.const 1)
-     )
-    )
-   )
-   (select
-    (i32.load offset=4
-     (get_local $0)
-    )
-    (i32.shr_u
-     (get_local $1)
-     (i32.const 1)
-    )
-    (get_local $2)
-   )
   )
  )
  (func $malloc (param $0 i32) (result i32)
